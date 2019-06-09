@@ -1,0 +1,9 @@
+.message {
+  background-color: #cecece;
+  border-radius: 3px;
+  padding: 5px;
+}
+
+.message__title {
+  font-weight: 700;
+}

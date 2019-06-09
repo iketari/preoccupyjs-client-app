@@ -1,5 +1,11 @@
 const SOCKET_URL = 'wss://r12aimxa21.execute-api.eu-west-2.amazonaws.com/Prod';
 
+export interface IMessage {
+  from: string;
+  to?: string;
+  message: string;
+}
+
 export default class WebSocketService {
   ws: WebSocket | null = null;
   user: string | null = null;
@@ -58,6 +64,16 @@ export default class WebSocketService {
     this.send({
       action: 'register',
       payload: name
+    });
+  }
+
+  communicate(to: string, message:string) {
+    this.send({
+      action: 'communicate',
+      payload: {
+        to,
+        message
+      }
     });
   }
 }

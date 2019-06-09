@@ -6,21 +6,9 @@ export interface IVideoScreenProps {
 }
 
 export default class VideoScreen extends React.Component<IVideoScreenProps, any> {
-  // constructor(props: IVideoScreenProps) {
-  //   super(props);
-  // }
-
   render() {
     return (
       <video id={this.props.idAttr} className="video"></video>
     );
   }
 }
-// const VideoScreen: React.FC = (props: VideoScreenProps) => {
-//   console.log(props);
-//   return (
-//     <video id="{props.idAttr}" className="video"></video>
-//   );
-// }
-
-// export default VideoScreen;
