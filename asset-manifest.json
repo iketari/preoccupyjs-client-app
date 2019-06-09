@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/preoccupyjs-client-app/static/css/main.ffd97e3c.chunk.css",
+    "main.js": "/preoccupyjs-client-app/static/js/main.0cd85406.chunk.js",
+    "main.js.map": "/preoccupyjs-client-app/static/js/main.0cd85406.chunk.js.map",
+    "runtime~main.js": "/preoccupyjs-client-app/static/js/runtime~main.b7425232.js",
+    "runtime~main.js.map": "/preoccupyjs-client-app/static/js/runtime~main.b7425232.js.map",
+    "static/css/2.22a7d4ef.chunk.css": "/preoccupyjs-client-app/static/css/2.22a7d4ef.chunk.css",
+    "static/js/2.9d979787.chunk.js": "/preoccupyjs-client-app/static/js/2.9d979787.chunk.js",
+    "static/js/2.9d979787.chunk.js.map": "/preoccupyjs-client-app/static/js/2.9d979787.chunk.js.map",
+    "index.html": "/preoccupyjs-client-app/index.html",
+    "precache-manifest.efa4d2a4a943e18921f311d15f140925.js": "/preoccupyjs-client-app/precache-manifest.efa4d2a4a943e18921f311d15f140925.js",
+    "service-worker.js": "/preoccupyjs-client-app/service-worker.js",
+    "static/css/2.22a7d4ef.chunk.css.map": "/preoccupyjs-client-app/static/css/2.22a7d4ef.chunk.css.map",
+    "static/css/main.ffd97e3c.chunk.css.map": "/preoccupyjs-client-app/static/css/main.ffd97e3c.chunk.css.map"
+  }
+}
