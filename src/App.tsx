@@ -101,7 +101,10 @@ class App extends React.Component<unknown, IAppState> {
       return;
     }
 
-    this.webRtc.start(nameValue);
+    this.webRtc.grabScreen().then(() => {
+      this.webRtc.start(nameValue);
+    });
+    
   }
 
   handleOnSendMessageClick = () => {

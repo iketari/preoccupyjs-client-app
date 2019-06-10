@@ -62,8 +62,10 @@ export default class WebRTCService {
     for (const track of this.localStream.getTracks()) {
       peerConnection.addTrack(track, this.localStream);
     }
+    
 
     this.peerConnection = peerConnection;
+
   
     if(isCaller) {
       this.peerUserName = peerUserName as string;
@@ -71,6 +73,16 @@ export default class WebRTCService {
         .then(this.createdDescription)
         .catch(this.errorHandler);
     }
+  }
+
+  grabScreen() {
+    if(navigator.mediaDevices.getUserMedia) {
+      return (navigator.mediaDevices as any).getDisplayMedia({video: true})
+        .then(this.getUserMediaSuccess)
+        .catch(this.errorHandler);
+    } else {
+      alert('Your browser does not support getDisplayMedia API');
+    } 
   }
 
   private gotMessageFromServer = (message: IMessage) => {
