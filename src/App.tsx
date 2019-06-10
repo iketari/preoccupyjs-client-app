@@ -4,6 +4,7 @@ import VideoScreen from './components/video-screen/VideoScreen';
 import './App.css';
 import WebSocketService, { IMessage } from './modules/websocket.service';
 import Message from './components/message/Message';
+import WebRTCService from './modules/webrtc.service';
 
 interface IAppState {
   name: string | null;
@@ -12,6 +13,8 @@ interface IAppState {
 
 class App extends React.Component<unknown, IAppState> {
   ws: WebSocketService = new WebSocketService();
+  webRtc: WebRTCService = new WebRTCService(this.ws);
+
   toNameRef: RefObject<HTMLInputElement> = React.createRef<HTMLInputElement>();
   toMessageRef: RefObject<HTMLTextAreaElement> = React.createRef<HTMLTextAreaElement>();
 
@@ -29,17 +32,18 @@ class App extends React.Component<unknown, IAppState> {
       <Container>
         <Row>
           <Col>
-            <VideoScreen idAttr="self" />
+            <VideoScreen idAttr="localVideo" />
           </Col>
           <Col>
-            <VideoScreen idAttr="remote" />
+            <VideoScreen idAttr="remoteVideo" />
           </Col>
         </Row>
         <Row>
           <Col>
-            <Button onClick={() => this.handleOnRegisterClick()} variant="success">Register</Button>
+            <Button onClick={() => this.handleOnRegisterClick()} variant="primary">Register</Button>
           </Col>
           <Col>
+            <Button onClick={this.handleOnStartCallClick} variant="success">Call</Button>
             <Button variant="danger">Abort call</Button>
           </Col>
           <Col>Logged in as: {this.state.name}</Col>
@@ -50,11 +54,14 @@ class App extends React.Component<unknown, IAppState> {
             <textarea ref={this.toMessageRef} placeholder="Message body..."></textarea>
           </Col>
           <Col>
-            <Button onClick={this.handleOnSendMessageClick} variant="success">Send message</Button>
+            <Button onClick={this.handleOnSendMessageClick} variant="secondary">Send message</Button>
           </Col>
           <Col>
             Messages: {this.state.messages.map((message, index) => (
-              <Message item={message} key={index} />
+              <div key={index}>
+                <Message item={message} />
+                <hr/>
+              </div>
             ))}
           </Col>
         </Row>
@@ -62,7 +69,7 @@ class App extends React.Component<unknown, IAppState> {
     );
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.ws.connect();
 
     this.ws.onRegister((result, name) => {
@@ -77,6 +84,8 @@ class App extends React.Component<unknown, IAppState> {
         ]
       })
     });
+
+    this.initWebRTC();
   }
 
   handleOnRegisterClick() {
@@ -84,6 +93,15 @@ class App extends React.Component<unknown, IAppState> {
     if (name) {
       this.ws.register(name);
     }
+  }
+
+  handleOnStartCallClick = () => {
+    const nameValue = this.toNameRef.current && this.toNameRef.current.value;
+    if (!nameValue) {
+      return;
+    }
+
+    this.webRtc.start(nameValue);
   }
 
   handleOnSendMessageClick = () => {
@@ -95,6 +113,10 @@ class App extends React.Component<unknown, IAppState> {
     }
 
     this.ws.communicate(nameValue, messageValue);
+  }
+
+  private initWebRTC() {
+    this.webRtc.init('localVideo', 'remoteVideo');
   }
 }
 

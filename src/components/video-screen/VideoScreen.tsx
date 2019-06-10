@@ -8,7 +8,7 @@ export interface IVideoScreenProps {
 export default class VideoScreen extends React.Component<IVideoScreenProps, any> {
   render() {
     return (
-      <video id={this.props.idAttr} className="video"></video>
+      <video autoPlay muted id={this.props.idAttr} className="video"></video>
     );
   }
 }

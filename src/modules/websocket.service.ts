@@ -9,15 +9,15 @@ export interface IMessage {
 export default class WebSocketService {
   ws: WebSocket | null = null;
   user: string | null = null;
-  onMessageCb: (msg: any) => void = () => {};
+  onMessageCallbacks: ((msg: IMessage) => void)[] = [];
   onRegisterCb: (result: boolean, name?: string) => void = () => {};
 
   setUser(user: string) {
     this.user = user;
   }
 
-  onMessage(cb: (msg: any) => void) {
-    this.onMessageCb = cb;
+  onMessage(cb: (msg: IMessage) => void) {
+    this.onMessageCallbacks.push(cb);
   }
 
   onRegister(cb: (result: boolean, name?: string) => void) {
@@ -35,7 +35,7 @@ export default class WebSocketService {
           break;
         
         case 'communticate':
-          this.onMessageCb(data.payload);
+          this.onMessageCallbacks.forEach(cb =>cb(data.payload));
           break;
       
         default:
