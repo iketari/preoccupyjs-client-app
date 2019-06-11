@@ -1,4 +1,5 @@
 import WebSocketService, { IMessage } from "./websocket.service";
+import { EventEmitter } from "eventemitter3";
 
 export interface ISignalMessage {
   uuid: string;
@@ -10,12 +11,14 @@ interface ISignalMessageSdp extends ISignalMessage {
   sdp: RTCSessionDescriptionInit;
 }
 
-export default class WebRTCService {
+export default class WebRTCService extends EventEmitter {
   peerUserName: string | null = null;
   localVideo: HTMLVideoElement | null = null;
   localStream: MediaStream | null = null;
   remoteVideo: HTMLVideoElement | null = null;
   peerConnection: RTCPeerConnection | null = null;
+  dataChannel: RTCDataChannel | null = null;
+  receiveChannel: RTCDataChannel | null = null;
   uuid: string | null = null;
   
   peerConnectionConfig = {
@@ -25,7 +28,9 @@ export default class WebRTCService {
     ]
   };
 
-  constructor(private serverConnection: WebSocketService) {}
+  constructor(private serverConnection: WebSocketService) {
+      super();
+  }
   
   init(localVideo: string, remoteVideo: string) {
     this.uuid = this.createUUID();
@@ -33,7 +38,7 @@ export default class WebRTCService {
     this.localVideo = document.getElementById(localVideo) as HTMLVideoElement;
     this.remoteVideo = document.getElementById(remoteVideo) as HTMLVideoElement;
 
-    this.serverConnection.onMessage(this.gotMessageFromServer);
+    this.serverConnection.on('communticate', this.gotMessageFromServer);
   
     const constraints = {
       video: true,
@@ -62,17 +67,65 @@ export default class WebRTCService {
     for (const track of this.localStream.getTracks()) {
       peerConnection.addTrack(track, this.localStream);
     }
-    
 
     this.peerConnection = peerConnection;
 
-  
+    let dc = peerConnection.createDataChannel('datachannel');
+    
+    dc.onmessage = (event) => {
+      const messgage: IMessage = {
+        from: this.peerUserName as string,
+        message: event.data
+      }
+      this.emit('communticate', messgage);
+      console.log("received: " + event.data);
+    };
+    
+    dc.onopen = () => {
+      this.dataChannel = dc;
+      console.log("datachannel open");
+    };
+    
+    dc.onclose = () => {
+      this.dataChannel = null;
+      console.log("datachannel close");
+    };
+    
+    peerConnection.ondatachannel = (event) => {
+      this.receiveChannel = event.channel;
+      this.receiveChannel.onclose = () => {
+        this.receiveChannel = null;
+      }
+
+      this.receiveChannel.onmessage = (event) => {
+        console.log("received: " + event.data);
+        const messgage: IMessage = {
+          from: this.peerUserName as string,
+          message: event.data
+        }
+        this.emit('communticate', messgage);
+      };
+    }
+
     if(isCaller) {
       this.peerUserName = peerUserName as string;
+
       peerConnection.createOffer()
         .then(this.createdDescription)
         .catch(this.errorHandler);
     }
+  }
+  
+  isDataChannelReady() {
+    return !!this.receiveChannel && !!this.dataChannel;
+  }
+  
+  communicate(message: string) {
+    if (!this.isDataChannelReady()) {
+      throw new Error('DC is not available now');
+    }
+
+    (this.dataChannel as RTCDataChannel).send(message);
   }
 
   grabScreen() {
@@ -100,7 +153,7 @@ export default class WebRTCService {
     // Ignore messages from ourself
     if(!signal.uuid || signal.uuid === this.uuid) return;
     this.peerUserName = message.from;
-  console.log(signal);
+
     if(signal.sdp) {
       const sdp = (signal as ISignalMessageSdp).sdp;
       peerConnection.setRemoteDescription(new RTCSessionDescription(signal.sdp))

@@ -1,3 +1,5 @@
+import {EventEmitter} from 'eventemitter3';
+
 const SOCKET_URL = 'wss://r12aimxa21.execute-api.eu-west-2.amazonaws.com/Prod';
 
 export interface IMessage {
@@ -6,22 +8,12 @@ export interface IMessage {
   message: string;
 }
 
-export default class WebSocketService {
+export default class WebSocketService extends EventEmitter {
   ws: WebSocket | null = null;
   user: string | null = null;
-  onMessageCallbacks: ((msg: IMessage) => void)[] = [];
-  onRegisterCb: (result: boolean, name?: string) => void = () => {};
 
   setUser(user: string) {
     this.user = user;
-  }
-
-  onMessage(cb: (msg: IMessage) => void) {
-    this.onMessageCallbacks.push(cb);
-  }
-
-  onRegister(cb: (result: boolean, name?: string) => void) {
-    this.onRegisterCb = cb;
   }
 
   connect() {
@@ -31,15 +23,21 @@ export default class WebSocketService {
 
       switch (data.action) {
         case 'registerSuccess':
-          this.onRegisterCb(true, data.payload);
+          this.emit('register', {
+            result: true,
+            name: data.payload
+          });
           break;
         
         case 'communticate':
-          this.onMessageCallbacks.forEach(cb =>cb(data.payload));
+          this.emit('communticate', data.payload);
           break;
       
         default:
-          this.onRegisterCb(false);
+          this.emit('register', {
+            result: false,
+            name: null
+          });
           break;
       }
     }

@@ -72,11 +72,20 @@ class App extends React.Component<unknown, IAppState> {
   componentDidMount() {
     this.ws.connect();
 
-    this.ws.onRegister((result, name) => {
+    this.ws.on('register', ({result, name}) => {
       this.setState({name: result && name ? name : null});
     });
 
-    this.ws.onMessage((message: IMessage) => {
+    this.ws.on('communticate', (message: IMessage) => {
+      this.setState({
+        messages: [
+          ...this.state.messages,
+          message
+        ]
+      })
+    });
+    
+    this.webRtc.on('communticate', (message: IMessage) => {
       this.setState({
         messages: [
           ...this.state.messages,
@@ -115,7 +124,12 @@ class App extends React.Component<unknown, IAppState> {
       return;
     }
 
-    this.ws.communicate(nameValue, messageValue);
+    if (this.webRtc.dataChannel) {
+      this.webRtc.communicate(messageValue);
+    } else {
+      this.ws.communicate(nameValue, messageValue);
+    }
+    
   }
 
   private initWebRTC() {
