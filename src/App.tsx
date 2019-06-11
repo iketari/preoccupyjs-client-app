@@ -1,10 +1,13 @@
 import React, { RefObject } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Host, createClient } from 'preoccupyjs';
 import VideoScreen from './components/video-screen/VideoScreen';
 import './App.css';
 import WebSocketService, { IMessage } from './modules/websocket.service';
 import Message from './components/message/Message';
 import WebRTCService from './modules/webrtc.service';
+import CustomTransport from './modules/preoccupy.transport';
+
 
 interface IAppState {
   name: string | null;
@@ -35,7 +38,10 @@ class App extends React.Component<unknown, IAppState> {
             <VideoScreen idAttr="localVideo" />
           </Col>
           <Col>
-            <VideoScreen idAttr="remoteVideo" />
+            <div className="remoteVideoScree">
+              <VideoScreen idAttr="remoteVideo" />
+              <div id="pad" className="pad"></div> 
+            </div>
           </Col>
         </Row>
         <Row>
@@ -47,6 +53,14 @@ class App extends React.Component<unknown, IAppState> {
             <Button variant="danger">Abort call</Button>
           </Col>
           <Col>Logged in as: {this.state.name}</Col>
+        </Row>
+        <Row>
+          <Col></Col>
+          <Col>
+            <Button onClick={this.initPreoccupyjsHost} >Init Host</Button>
+            <Button onClick={this.initPreoccupyjsClient}>Init Clinet</Button>
+          </Col>
+          <Col></Col>
         </Row>
         <Row>
           <Col>
@@ -95,6 +109,7 @@ class App extends React.Component<unknown, IAppState> {
     });
 
     this.initWebRTC();
+    this.initPreoccupyjs();
   }
 
   handleOnRegisterClick() {
@@ -134,6 +149,34 @@ class App extends React.Component<unknown, IAppState> {
 
   private initWebRTC() {
     this.webRtc.init('localVideo', 'remoteVideo');
+  }
+  
+  private initPreoccupyjsHost() {
+    const transport = new CustomTransport({
+      send: (message) => this.webRtc.communicate(message),
+      filterFn: (message) => {
+        console.log(message);
+        return false;
+      }
+    });
+    const host = new Host(transport, document.getElementById('pad') as HTMLElement);
+    
+    host.start();
+    
+  }
+  
+  private initPreoccupyjsClient() {
+    const transport = new CustomTransport({
+      send: (message) => this.webRtc.communicate(message),
+      filterFn: (message) => {
+        console.log(message);
+        return false;
+      }
+    });
+    
+    const client = createClient(document.body, transport);
+    
+    client.start();
   }
 }
 
