@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "42326dd17f3b8abb2e83707c372a3f39",
+    "revision": "156d548bb1f66396a5fde81c3f76b441",
     "url": "/preoccupyjs-client-app/index.html"
   },
   {
-    "revision": "45337bb15b30e6a4ff8d",
+    "revision": "d8b5897b419f8e50c7c2",
     "url": "/preoccupyjs-client-app/static/css/2.22a7d4ef.chunk.css"
   },
   {
-    "revision": "6c0060f0a5cc03e9c492",
+    "revision": "1b557bfa92cdb267edf7",
     "url": "/preoccupyjs-client-app/static/css/main.ffd97e3c.chunk.css"
   },
   {
-    "revision": "45337bb15b30e6a4ff8d",
-    "url": "/preoccupyjs-client-app/static/js/2.b522496e.chunk.js"
+    "revision": "d8b5897b419f8e50c7c2",
+    "url": "/preoccupyjs-client-app/static/js/2.3d642780.chunk.js"
   },
   {
-    "revision": "6c0060f0a5cc03e9c492",
-    "url": "/preoccupyjs-client-app/static/js/main.961fdeb2.chunk.js"
+    "revision": "1b557bfa92cdb267edf7",
+    "url": "/preoccupyjs-client-app/static/js/main.405785bb.chunk.js"
   },
   {
     "revision": "9399d7ee6ba74b0a12fc",
