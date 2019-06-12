@@ -17,6 +17,8 @@ interface IAppState {
 class App extends React.Component<unknown, IAppState> {
   ws: WebSocketService = new WebSocketService();
   webRtc: WebRTCService = new WebRTCService(this.ws);
+  preoccupyTransport: CustomTransport | null = null;
+  
 
   toNameRef: RefObject<HTMLInputElement> = React.createRef<HTMLInputElement>();
   toMessageRef: RefObject<HTMLTextAreaElement> = React.createRef<HTMLTextAreaElement>();
@@ -100,6 +102,11 @@ class App extends React.Component<unknown, IAppState> {
     });
     
     this.webRtc.on('communticate', (message: IMessage) => {
+      
+      if (this.preoccupyTransport) {
+        this.preoccupyTransport.onMessage(message.message);
+      }
+      
       this.setState({
         messages: [
           ...this.state.messages,
@@ -109,7 +116,6 @@ class App extends React.Component<unknown, IAppState> {
     });
 
     this.initWebRTC();
-    this.initPreoccupyjs();
   }
 
   handleOnRegisterClick() {
@@ -151,32 +157,29 @@ class App extends React.Component<unknown, IAppState> {
     this.webRtc.init('localVideo', 'remoteVideo');
   }
   
-  private initPreoccupyjsHost() {
+  private initPreoccupyjsHost = () => {
+    const webRtc = this.webRtc;
+
     const transport = new CustomTransport({
-      send: (message) => this.webRtc.communicate(message),
-      filterFn: (message) => {
-        console.log(message);
-        return false;
-      }
+      send: (message: object) => webRtc.communicate(JSON.stringify(message))
     });
     const host = new Host(transport, document.getElementById('pad') as HTMLElement);
-    
     host.start();
     
+    this.preoccupyTransport = transport;
   }
   
-  private initPreoccupyjsClient() {
+  private initPreoccupyjsClient = () => {
+    const webRtc = this.webRtc;
+
     const transport = new CustomTransport({
-      send: (message) => this.webRtc.communicate(message),
-      filterFn: (message) => {
-        console.log(message);
-        return false;
-      }
+      send: (message) => webRtc.communicate(JSON.stringify(message))
     });
     
     const client = createClient(document.body, transport);
-    
     client.start();
+
+    this.preoccupyTransport = transport;
   }
 }
 
