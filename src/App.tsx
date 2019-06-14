@@ -8,13 +8,21 @@ import Message from './components/message/Message';
 import WebRTCService from './modules/webrtc.service';
 import CustomTransport from './modules/preoccupy.transport';
 
+/* eslint import/no-webpack-loader-syntax: off */
+//@ts-ignore
+import bookmarklet from './assets/bookmarklet.bundle';
 
 interface IAppState {
   name: string | null;
   messages: IMessage[];
+  appMode: boolean;
 }
 
-class App extends React.Component<unknown, IAppState> {
+export interface IAppProps {
+  appMode: boolean;
+}
+
+class App extends React.Component<IAppProps, IAppState> {
   ws: WebSocketService = new WebSocketService();
   webRtc: WebRTCService = new WebRTCService(this.ws);
   preoccupyTransport: CustomTransport | null = null;
@@ -23,18 +31,19 @@ class App extends React.Component<unknown, IAppState> {
   toNameRef: RefObject<HTMLInputElement> = React.createRef<HTMLInputElement>();
   toMessageRef: RefObject<HTMLTextAreaElement> = React.createRef<HTMLTextAreaElement>();
 
-  constructor(props: unknown) {
+  constructor(props: IAppProps) {
     super(props);
 
     this.state = {
       name: null,
-      messages: []
+      messages: [],
+      appMode: props.appMode
     };
   }
 
   render() {
     return (
-      <Container>
+      <Container className={this.props.appMode ? 'appmode' : '' }>
         <Row>
           <Col>
             <VideoScreen idAttr="localVideo" />
@@ -53,6 +62,7 @@ class App extends React.Component<unknown, IAppState> {
           <Col>
             <Button onClick={this.handleOnStartCallClick} variant="success">Call</Button>
             <Button variant="danger">Abort call</Button>
+            <a href={bookmarklet}>Add to favs!</a>
           </Col>
           <Col>Logged in as: {this.state.name}</Col>
         </Row>
@@ -73,12 +83,14 @@ class App extends React.Component<unknown, IAppState> {
             <Button onClick={this.handleOnSendMessageClick} variant="secondary">Send message</Button>
           </Col>
           <Col>
-            Messages: {this.state.messages.map((message, index) => (
-              <div key={index}>
-                <Message item={message} />
-                <hr/>
-              </div>
-            ))}
+            <div className="messages">
+              Messages: {this.state.messages.map((message, index) => (
+                <div>
+                  <Message key={index} item={message} />
+                  <hr/>
+                </div>
+              ))}
+            </div>
           </Col>
         </Row>
       </Container>

@@ -13,6 +13,22 @@ code {
     monospace;
 }
 
+.appmode {
+  max-width: 300px;
+  background: #888;
+  overflow: auto;
+  position: fixed;
+  top: 5px;
+  bottom: 5px;
+  left: 5px;
+  border: 1px solid #000;
+}
+
+.messages {
+  max-height: 200px;
+  overflow: auto;
+}
+
 .pad {
     margin: 10px 5px;
     border: 1px dashed #888;
