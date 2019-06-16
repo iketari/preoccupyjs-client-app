@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 24);
+/******/ 	return __webpack_require__(__webpack_require__.s = 25);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -92,7 +92,7 @@
 
 
 if (true) {
-  module.exports = __webpack_require__(8);
+  module.exports = __webpack_require__(9);
 } else {}
 
 
@@ -314,7 +314,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(15);
+var	fixUrls = __webpack_require__(16);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -1118,12 +1118,18 @@ if (true) {
   // DCE check should happen before ReactDOM bundle executes so that
   // DevTools can report bad minification during injection.
   checkDCE();
-  module.exports = __webpack_require__(9);
+  module.exports = __webpack_require__(10);
 } else {}
 
 
 /***/ }),
 /* 7 */
+/***/ (function(module, exports) {
+
+console.log('Break down the recursion');
+
+/***/ }),
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1159,7 +1165,7 @@ function forwardRef(renderFn, _temp) {
 }
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1191,7 +1197,7 @@ unstable_ConcurrentMode:x,unstable_Profiler:u,__SECRET_INTERNALS_DO_NOT_USE_OR_Y
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1207,7 +1213,7 @@ unstable_ConcurrentMode:x,unstable_Profiler:u,__SECRET_INTERNALS_DO_NOT_USE_OR_Y
 /*
  Modernizr 3.0.0pre (Custom Build) | MIT
 */
-var aa=__webpack_require__(0),n=__webpack_require__(5),r=__webpack_require__(10);function ba(a,b,c,d,e,f,g,h){if(!a){a=void 0;if(void 0===b)a=Error("Minified exception occurred; use the non-minified dev environment for the full error message and additional helpful warnings.");else{var l=[c,d,e,f,g,h],k=0;a=Error(b.replace(/%s/g,function(){return l[k++]}));a.name="Invariant Violation"}a.framesToPop=1;throw a;}}
+var aa=__webpack_require__(0),n=__webpack_require__(5),r=__webpack_require__(11);function ba(a,b,c,d,e,f,g,h){if(!a){a=void 0;if(void 0===b)a=Error("Minified exception occurred; use the non-minified dev environment for the full error message and additional helpful warnings.");else{var l=[c,d,e,f,g,h],k=0;a=Error(b.replace(/%s/g,function(){return l[k++]}));a.name="Invariant Violation"}a.framesToPop=1;throw a;}}
 function x(a){for(var b=arguments.length-1,c="https://reactjs.org/docs/error-decoder.html?invariant="+a,d=0;d<b;d++)c+="&args[]="+encodeURIComponent(arguments[d+1]);ba(!1,"Minified React error #"+a+"; visit %s for the full message or use the non-minified dev environment for full errors and additional helpful warnings. ",c)}aa?void 0:x("227");function ca(a,b,c,d,e,f,g,h,l){var k=Array.prototype.slice.call(arguments,3);try{b.apply(c,k)}catch(m){this.onError(m)}}
 var da=!1,ea=null,fa=!1,ha=null,ia={onError:function(a){da=!0;ea=a}};function ja(a,b,c,d,e,f,g,h,l){da=!1;ea=null;ca.apply(ia,arguments)}function ka(a,b,c,d,e,f,g,h,l){ja.apply(this,arguments);if(da){if(da){var k=ea;da=!1;ea=null}else x("198"),k=void 0;fa||(fa=!0,ha=k)}}var la=null,ma={};
 function na(){if(la)for(var a in ma){var b=ma[a],c=la.indexOf(a);-1<c?void 0:x("96",a);if(!oa[c]){b.extractEvents?void 0:x("97",a);oa[c]=b;c=b.eventTypes;for(var d in c){var e=void 0;var f=c[d],g=b,h=d;pa.hasOwnProperty(h)?x("99",h):void 0;pa[h]=f;var l=f.phasedRegistrationNames;if(l){for(e in l)l.hasOwnProperty(e)&&qa(l[e],g,h);e=!0}else f.registrationName?(qa(f.registrationName,g,h),e=!0):e=!1;e?void 0:x("98",d,a)}}}}
@@ -1467,19 +1473,19 @@ X;X=!0;try{ki(a)}finally{(X=b)||W||Yh(1073741823,!1)}},__SECRET_INTERNALS_DO_NOT
 
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 if (true) {
-  module.exports = __webpack_require__(11);
+  module.exports = __webpack_require__(12);
 } else {}
 
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1505,10 +1511,10 @@ exports.unstable_scheduleCallback=function(a,b){var c=-1!==k?k:exports.unstable_
 b=c.previous;b.next=c.previous=a;a.next=c;a.previous=b}return a};exports.unstable_cancelCallback=function(a){var b=a.next;if(null!==b){if(b===a)d=null;else{a===d&&(d=b);var c=a.previous;c.next=b;b.previous=c}a.next=a.previous=null}};exports.unstable_wrapCallback=function(a){var b=g;return function(){var c=g,f=k;g=b;k=exports.unstable_now();try{return a.apply(this,arguments)}finally{g=c,k=f,v()}}};exports.unstable_getCurrentPriorityLevel=function(){return g};
 exports.unstable_shouldYield=function(){return!e&&(null!==d&&d.expirationTime<l||w())};exports.unstable_continueExecution=function(){null!==d&&p()};exports.unstable_pauseExecution=function(){};exports.unstable_getFirstCallbackNode=function(){return d};
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(12)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(13)))
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports) {
 
 var g;
@@ -1534,11 +1540,11 @@ module.exports = g;
 
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(14);
+var content = __webpack_require__(15);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -1559,7 +1565,7 @@ if(content.locals) module.exports = content.locals;
 if(false) {}
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -1569,7 +1575,7 @@ exports.push([module.i, "/*!\n * Bootstrap v4.3.1 (https://getbootstrap.com/)\n 
 
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports) {
 
 
@@ -1664,11 +1670,11 @@ module.exports = function (css) {
 
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(17);
+var content = __webpack_require__(18);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -1687,58 +1693,23 @@ var update = __webpack_require__(3)(content, options);
 if(content.locals) module.exports = content.locals;
 
 if(false) {}
-
-/***/ }),
-/* 17 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(2)(false);
-// Module
-exports.push([module.i, "body {\n  position: relative;\n  margin: 0;\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',\n    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',\n    sans-serif;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\n\ncode {\n  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',\n    monospace;\n}\n\n.appmode {\n  max-width: 300px;\n  background: #888;\n  overflow: auto;\n  position: fixed;\n  top: 5px;\n  bottom: 5px;\n  left: 5px;\n  border: 1px solid #000;\n}\n\n.messages {\n  max-height: 200px;\n  overflow: auto;\n}\n\n.pad {\n    margin: 10px 5px;\n    border: 1px dashed #888;\n    width: 100%;\n    height: calc(100vh - 350px);\n    resize: both;\n    overflow: auto;\n}\n\n.pad:focus {\n    outline: none;\n    border-width: 2px;\n}\n", ""]);
-
-
 
 /***/ }),
 /* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
-
-var content = __webpack_require__(19);
-
-if(typeof content === 'string') content = [[module.i, content, '']];
-
-var transform;
-var insertInto;
+exports = module.exports = __webpack_require__(2)(false);
+// Module
+exports.push([module.i, "body {\n  position: relative;\n  margin: 0;\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',\n    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',\n    sans-serif;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\n\ncode {\n  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',\n    monospace;\n}\n\n.appmode {\n  max-width: 300px;\n  background: #888;\n  overflow: auto;\n  position: fixed;\n  top: 5px;\n  bottom: 5px;\n  left: 5px;\n  border: 1px solid #000;\n  z-index: 999999999;\n}\n\n.messages {\n  max-height: 200px;\n  overflow: auto;\n}\n\n.pad {\n    border: 1px dashed #000;\n    resize: both;\n    overflow: auto;\n}\n\n.pad:focus {\n    outline: none;\n    border-width: 2px;\n}\n", ""]);
 
 
-
-var options = {"hmr":true}
-
-options.transform = transform
-options.insertInto = undefined;
-
-var update = __webpack_require__(3)(content, options);
-
-if(content.locals) module.exports = content.locals;
-
-if(false) {}
 
 /***/ }),
 /* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(2)(false);
-// Module
-exports.push([module.i, ".video {\n  background-color: dimgray;\n  border: 1px solid black;\n  max-width: 100%;\n}", ""]);
 
-
-
-/***/ }),
-/* 20 */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-var content = __webpack_require__(21);
+var content = __webpack_require__(20);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -1759,7 +1730,42 @@ if(content.locals) module.exports = content.locals;
 if(false) {}
 
 /***/ }),
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)(false);
+// Module
+exports.push([module.i, ".videoWrapper {\n  position: relative;\n  font-size: 0;\n}\n\n.video {\n  display: inline-block;\n  background-color: dimgray;\n  border: 1px solid black;\n  max-width: 100%;\n  width: 100%;\n}\n\n.pad {\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n}", ""]);
+
+
+
+/***/ }),
 /* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(22);
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(3)(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -1769,11 +1775,11 @@ exports.push([module.i, ".App {\n  text-align: center;\n}\n\n.App-logo {\n  anim
 
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(23);
+var content = __webpack_require__(24);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -1794,7 +1800,7 @@ if(content.locals) module.exports = content.locals;
 if(false) {}
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)(false);
@@ -1804,7 +1810,7 @@ exports.push([module.i, ".message {\n  background-color: #cecece;\n  border-radi
 
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1819,10 +1825,10 @@ var react_dom = __webpack_require__(6);
 var react_dom_default = /*#__PURE__*/__webpack_require__.n(react_dom);
 
 // EXTERNAL MODULE: ./node_modules/bootstrap/dist/css/bootstrap.css
-var bootstrap = __webpack_require__(13);
+var bootstrap = __webpack_require__(14);
 
 // EXTERNAL MODULE: ./src/index.css
-var src = __webpack_require__(16);
+var src = __webpack_require__(17);
 
 // CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/extends.js
 function _extends() {
@@ -1868,7 +1874,7 @@ function _inheritsLoose(subClass, superClass) {
   subClass.__proto__ = superClass;
 }
 // EXTERNAL MODULE: ./node_modules/@restart/context/forwardRef.js
-var forwardRef = __webpack_require__(7);
+var forwardRef = __webpack_require__(8);
 var forwardRef_default = /*#__PURE__*/__webpack_require__.n(forwardRef);
 
 // CONCATENATED MODULE: ./node_modules/react-bootstrap/es/ThemeProvider.js
@@ -8297,7 +8303,7 @@ function createHost(el, transport) {
 //# sourceMappingURL=preoccupyjs.es5.js.map
 
 // EXTERNAL MODULE: ./src/components/video-screen/VideoScreen.css
-var video_screen_VideoScreen = __webpack_require__(18);
+var video_screen_VideoScreen = __webpack_require__(19);
 
 // CONCATENATED MODULE: ./src/components/video-screen/VideoScreen.tsx
 var VideoScreen_extends = (undefined && undefined.__extends) || (function () {
@@ -8321,14 +8327,17 @@ var VideoScreen_VideoScreen = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     VideoScreen.prototype.render = function () {
-        return (react_default.a.createElement("video", { autoPlay: true, muted: true, id: this.props.idAttr, className: "video" }));
+        var padEl = this.props.pad ? react_default.a.createElement("div", { tabIndex: -1, id: "pad", className: "pad" }) : null;
+        return (react_default.a.createElement("div", { className: "videoWrapper" },
+            react_default.a.createElement("video", { autoPlay: true, muted: true, id: this.props.idAttr, className: "video" }),
+            padEl));
     };
     return VideoScreen;
 }(react_default.a.Component));
 /* harmony default export */ var components_video_screen_VideoScreen = (VideoScreen_VideoScreen);
 
 // EXTERNAL MODULE: ./src/App.css
-var src_App = __webpack_require__(20);
+var src_App = __webpack_require__(21);
 
 // EXTERNAL MODULE: ./node_modules/eventemitter3/index.js
 var eventemitter3 = __webpack_require__(4);
@@ -8416,7 +8425,7 @@ var WebSocketService = /** @class */ (function (_super) {
 /* harmony default export */ var websocket_service = (WebSocketService);
 
 // EXTERNAL MODULE: ./src/components/message/Message.css
-var message_Message = __webpack_require__(22);
+var message_Message = __webpack_require__(23);
 
 // CONCATENATED MODULE: ./src/components/message/Message.tsx
 var Message_extends = (undefined && undefined.__extends) || (function () {
@@ -8483,10 +8492,6 @@ var WebRTCService = /** @class */ (function (_super) {
             ]
         };
         _this.gotMessageFromServer = function (message) {
-            if (!_this.peerConnection) {
-                _this.start();
-            }
-            var peerConnection = _this.peerConnection;
             var signal;
             try {
                 signal = JSON.parse(message.message);
@@ -8494,10 +8499,14 @@ var WebRTCService = /** @class */ (function (_super) {
             catch (e) {
                 return;
             }
-            // Ignore messages from ourself
+            // Ignore messages from yourself
             if (!signal.uuid || signal.uuid === _this.uuid)
                 return;
             _this.peerUserName = message.from;
+            if (!_this.peerConnection) {
+                _this.start();
+            }
+            var peerConnection = _this.peerConnection;
             if (signal.sdp) {
                 var sdp_1 = signal.sdp;
                 peerConnection.setRemoteDescription(new RTCSessionDescription(signal.sdp))
@@ -8556,21 +8565,8 @@ var WebRTCService = /** @class */ (function (_super) {
         this.localVideo = document.getElementById(localVideo);
         this.remoteVideo = document.getElementById(remoteVideo);
         this.serverConnection.on('communticate', this.gotMessageFromServer);
-        var constraints = {
-            video: true,
-            audio: true,
-        };
-        if (navigator.mediaDevices.getUserMedia) {
-            navigator.mediaDevices.getUserMedia(constraints)
-                .then(this.getUserMediaSuccess)
-                .catch(this.errorHandler);
-        }
-        else {
-            alert('Your browser does not support getUserMedia API');
-        }
     };
     WebRTCService.prototype.start = function (peerUserName) {
-        var _this = this;
         var isCaller = peerUserName !== undefined;
         if (!this.localStream) {
             throw new Error('No localStream');
@@ -8583,13 +8579,27 @@ var WebRTCService = /** @class */ (function (_super) {
             peerConnection.addTrack(track, this.localStream);
         }
         this.peerConnection = peerConnection;
+        this.initDataChanel();
+        if (isCaller) {
+            this.peerUserName = peerUserName;
+            peerConnection.createOffer()
+                .then(this.createdDescription)
+                .catch(this.errorHandler);
+        }
+    };
+    WebRTCService.prototype.initDataChanel = function () {
+        var _this = this;
+        if (!this.peerConnection) {
+            throw new Error('No peerConnection');
+        }
+        var peerConnection = this.peerConnection;
         var dc = peerConnection.createDataChannel('datachannel');
         dc.onmessage = function (event) {
-            var messgage = {
+            var message = {
                 from: _this.peerUserName,
                 message: event.data
             };
-            _this.emit('communticate', messgage);
+            _this.emit('communticate', message);
             console.log("received: " + event.data);
         };
         dc.onopen = function () {
@@ -8607,19 +8617,13 @@ var WebRTCService = /** @class */ (function (_super) {
             };
             _this.receiveChannel.onmessage = function (event) {
                 console.log("received: " + event.data);
-                var messgage = {
+                var message = {
                     from: _this.peerUserName,
                     message: event.data
                 };
-                _this.emit('communticate', messgage);
+                _this.emit('communticate', message);
             };
         };
-        if (isCaller) {
-            this.peerUserName = peerUserName;
-            peerConnection.createOffer()
-                .then(this.createdDescription)
-                .catch(this.errorHandler);
-        }
     };
     WebRTCService.prototype.isDataChannelReady = function () {
         return !!this.receiveChannel && !!this.dataChannel;
@@ -8631,13 +8635,27 @@ var WebRTCService = /** @class */ (function (_super) {
         this.dataChannel.send(message);
     };
     WebRTCService.prototype.grabScreen = function () {
-        if (navigator.mediaDevices.getUserMedia) {
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
             return navigator.mediaDevices.getDisplayMedia({ video: true })
                 .then(this.getUserMediaSuccess)
                 .catch(this.errorHandler);
         }
         else {
             alert('Your browser does not support getDisplayMedia API');
+        }
+    };
+    WebRTCService.prototype.grabCamera = function () {
+        var constraints = {
+            video: true,
+            audio: true,
+        };
+        if (navigator.mediaDevices.getUserMedia) {
+            return navigator.mediaDevices.getUserMedia(constraints)
+                .then(this.getUserMediaSuccess)
+                .catch(this.errorHandler);
+        }
+        else {
+            alert('Your browser does not support getUserMedia API');
         }
     };
     // Taken from http://stackoverflow.com/a/105074/515584
@@ -8720,6 +8738,10 @@ var preoccupy_transport_CustomTransport = /** @class */ (function (_super) {
 }(EventEmitter));
 /* harmony default export */ var preoccupy_transport = (preoccupy_transport_CustomTransport);
 
+// EXTERNAL MODULE: ./src/assets/bookmarklet.bundle.stub
+var bookmarklet_bundle = __webpack_require__(7);
+var bookmarklet_bundle_default = /*#__PURE__*/__webpack_require__.n(bookmarklet_bundle);
+
 // CONCATENATED MODULE: ./src/App.tsx
 var App_extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -8743,6 +8765,9 @@ var App_extends = (undefined && undefined.__extends) || (function () {
 
 
 
+/* eslint import/no-webpack-loader-syntax: off */
+//@ts-ignore
+
 var App_App = /** @class */ (function (_super) {
     App_extends(App, _super);
     function App(props) {
@@ -8757,9 +8782,7 @@ var App_App = /** @class */ (function (_super) {
             if (!nameValue) {
                 return;
             }
-            _this.webRtc.grabScreen().then(function () {
-                _this.webRtc.start(nameValue);
-            });
+            _this.webRtc.grabScreen().then(function () { return _this.webRtc.start(nameValue); });
         };
         _this.handleOnSendMessageClick = function () {
             var nameValue = _this.toNameRef.current && _this.toNameRef.current.value;
@@ -8773,6 +8796,9 @@ var App_App = /** @class */ (function (_super) {
             else {
                 _this.ws.communicate(nameValue, messageValue);
             }
+        };
+        _this.handleOnChangeShowMessages = function (event) {
+            _this.setState({ showLog: event.target.checked });
         };
         _this.initPreoccupyjsHost = function () {
             var webRtc = _this.webRtc;
@@ -8795,7 +8821,8 @@ var App_App = /** @class */ (function (_super) {
         _this.state = {
             name: null,
             messages: [],
-            appMode: props.appMode
+            appMode: props.appMode,
+            showLog: true
         };
         return _this;
     }
@@ -8804,18 +8831,17 @@ var App_App = /** @class */ (function (_super) {
         return (react_default.a.createElement(es_Container, { className: this.props.appMode ? 'appmode' : '' },
             react_default.a.createElement(es_Row, null,
                 react_default.a.createElement(es_Col, null,
-                    react_default.a.createElement(components_video_screen_VideoScreen, { idAttr: "localVideo" })),
+                    react_default.a.createElement(components_video_screen_VideoScreen, { pad: false, idAttr: "localVideo" })),
                 react_default.a.createElement(es_Col, null,
                     react_default.a.createElement("div", { className: "remoteVideoScree" },
-                        react_default.a.createElement(components_video_screen_VideoScreen, { idAttr: "remoteVideo" }),
-                        react_default.a.createElement("div", { id: "pad", className: "pad" })))),
+                        react_default.a.createElement(components_video_screen_VideoScreen, { pad: true, idAttr: "remoteVideo" })))),
             react_default.a.createElement(es_Row, null,
                 react_default.a.createElement(es_Col, null,
                     react_default.a.createElement(es_Button, { onClick: function () { return _this.handleOnRegisterClick(); }, variant: "primary" }, "Register")),
                 react_default.a.createElement(es_Col, null,
                     react_default.a.createElement(es_Button, { onClick: this.handleOnStartCallClick, variant: "success" }, "Call"),
                     react_default.a.createElement(es_Button, { variant: "danger" }, "Abort call"),
-                    react_default.a.createElement("a", { href: 'bookmarklet' }, "Add to favs!")),
+                    react_default.a.createElement("a", { href: bookmarklet_bundle_default.a }, "Help me!")),
                 react_default.a.createElement(es_Col, null,
                     "Logged in as: ",
                     this.state.name)),
@@ -8832,7 +8858,9 @@ var App_App = /** @class */ (function (_super) {
                 react_default.a.createElement(es_Col, null,
                     react_default.a.createElement(es_Button, { onClick: this.handleOnSendMessageClick, variant: "secondary" }, "Send message")),
                 react_default.a.createElement(es_Col, null,
-                    react_default.a.createElement("div", { className: "messages" },
+                    react_default.a.createElement("label", { htmlFor: "checkbox" }, "Show messages"),
+                    react_default.a.createElement("input", { onChange: this.handleOnChangeShowMessages, id: "showmessages", type: "checkbox" }),
+                    this.state.showLog && react_default.a.createElement("div", { className: "messages" },
                         "Messages: ",
                         this.state.messages.map(function (message, index) { return (react_default.a.createElement("div", null,
                             react_default.a.createElement(components_message_Message, { key: index, item: message }),
@@ -8872,6 +8900,9 @@ var App_App = /** @class */ (function (_super) {
     };
     App.prototype.initWebRTC = function () {
         this.webRtc.init('localVideo', 'remoteVideo');
+        if (!this.state.appMode) {
+            this.webRtc.grabCamera();
+        }
     };
     return App;
 }(react_default.a.Component));

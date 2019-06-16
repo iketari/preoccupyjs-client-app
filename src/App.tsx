@@ -1,4 +1,4 @@
-import React, { RefObject } from 'react';
+import React, { RefObject, ChangeEvent } from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import { Host, createClient } from 'preoccupyjs';
 import VideoScreen from './components/video-screen/VideoScreen';
@@ -16,6 +16,7 @@ interface IAppState {
   name: string | null;
   messages: IMessage[];
   appMode: boolean;
+  showLog: boolean;
 }
 
 export interface IAppProps {
@@ -37,7 +38,8 @@ class App extends React.Component<IAppProps, IAppState> {
     this.state = {
       name: null,
       messages: [],
-      appMode: props.appMode
+      appMode: props.appMode,
+      showLog: true
     };
   }
 
@@ -46,12 +48,11 @@ class App extends React.Component<IAppProps, IAppState> {
       <Container className={this.props.appMode ? 'appmode' : '' }>
         <Row>
           <Col>
-            <VideoScreen idAttr="localVideo" />
+            <VideoScreen pad={false} idAttr="localVideo" />
           </Col>
           <Col>
             <div className="remoteVideoScree">
-              <VideoScreen idAttr="remoteVideo" />
-              <div id="pad" className="pad"></div> 
+              <VideoScreen pad={true} idAttr="remoteVideo" />
             </div>
           </Col>
         </Row>
@@ -62,7 +63,7 @@ class App extends React.Component<IAppProps, IAppState> {
           <Col>
             <Button onClick={this.handleOnStartCallClick} variant="success">Call</Button>
             <Button variant="danger">Abort call</Button>
-            <a href={bookmarklet}>Add to favs!</a>
+            <a href={bookmarklet}>Help me!</a>
           </Col>
           <Col>Logged in as: {this.state.name}</Col>
         </Row>
@@ -83,14 +84,16 @@ class App extends React.Component<IAppProps, IAppState> {
             <Button onClick={this.handleOnSendMessageClick} variant="secondary">Send message</Button>
           </Col>
           <Col>
-            <div className="messages">
+            <label htmlFor="checkbox">Show messages</label>
+            <input onChange={this.handleOnChangeShowMessages} id="showmessages" type="checkbox"/>
+            {this.state.showLog && <div className="messages">
               Messages: {this.state.messages.map((message, index) => (
                 <div>
                   <Message key={index} item={message} />
                   <hr/>
                 </div>
               ))}
-            </div>
+            </div>}
           </Col>
         </Row>
       </Container>
@@ -143,10 +146,7 @@ class App extends React.Component<IAppProps, IAppState> {
       return;
     }
 
-    this.webRtc.grabScreen().then(() => {
-      this.webRtc.start(nameValue);
-    });
-    
+    this.webRtc.grabScreen().then(() => this.webRtc.start(nameValue));
   }
 
   handleOnSendMessageClick = () => {
@@ -165,8 +165,16 @@ class App extends React.Component<IAppProps, IAppState> {
     
   }
 
+  handleOnChangeShowMessages = (event: ChangeEvent<HTMLInputElement>) => {
+    this.setState({showLog: event.target.checked});
+  }
+
   private initWebRTC() {
     this.webRtc.init('localVideo', 'remoteVideo');
+
+    if (!this.state.appMode) {
+      this.webRtc.grabCamera();
+    }
   }
   
   private initPreoccupyjsHost = () => {

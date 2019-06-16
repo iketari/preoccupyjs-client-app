@@ -19,10 +19,14 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: [ '.tsx', '.ts', '.js' ]
+    extensions: [ '.tsx', '.ts', '.js' ],
+    alias: {
+      './assets/bookmarklet.bundle': path.resolve(__dirname, './../src/assets/bookmarklet.bundle.stub')
+    }
   },
   output: {
     filename: 'bookmarklet.bundle',
     path: path.resolve(__dirname, '../src/assets')
   }
 };
+

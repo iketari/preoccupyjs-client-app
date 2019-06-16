@@ -39,23 +39,11 @@ export default class WebRTCService extends EventEmitter {
     this.remoteVideo = document.getElementById(remoteVideo) as HTMLVideoElement;
 
     this.serverConnection.on('communticate', this.gotMessageFromServer);
-  
-    const constraints = {
-      video: true,
-      audio: true,
-    };
-  
-    if(navigator.mediaDevices.getUserMedia) {
-      navigator.mediaDevices.getUserMedia(constraints)
-        .then(this.getUserMediaSuccess)
-        .catch(this.errorHandler);
-    } else {
-      alert('Your browser does not support getUserMedia API');
-    }
   }
 
   start(peerUserName?: string) {
     const isCaller = peerUserName !== undefined;
+
     if (!this.localStream) {
       throw new Error('No localStream');
     }
@@ -69,15 +57,32 @@ export default class WebRTCService extends EventEmitter {
     }
 
     this.peerConnection = peerConnection;
+    this.initDataChanel();
+
+    if(isCaller) {
+      this.peerUserName = peerUserName as string;
+
+      peerConnection.createOffer()
+        .then(this.createdDescription)
+        .catch(this.errorHandler);
+    }
+  }
+
+  initDataChanel() {
+    if (!this.peerConnection) {
+      throw new Error('No peerConnection');
+    }
+
+    const peerConnection = this.peerConnection;
 
     let dc = peerConnection.createDataChannel('datachannel');
     
     dc.onmessage = (event) => {
-      const messgage: IMessage = {
+      const message: IMessage = {
         from: this.peerUserName as string,
         message: event.data
       }
-      this.emit('communticate', messgage);
+      this.emit('communticate', message);
       console.log("received: " + event.data);
     };
     
@@ -90,7 +95,7 @@ export default class WebRTCService extends EventEmitter {
       this.dataChannel = null;
       console.log("datachannel close");
     };
-    
+
     peerConnection.ondatachannel = (event) => {
       this.receiveChannel = event.channel;
       this.receiveChannel.onclose = () => {
@@ -99,21 +104,14 @@ export default class WebRTCService extends EventEmitter {
 
       this.receiveChannel.onmessage = (event) => {
         console.log("received: " + event.data);
-        const messgage: IMessage = {
+        const message: IMessage = {
           from: this.peerUserName as string,
           message: event.data
         }
-        this.emit('communticate', messgage);
+        this.emit('communticate', message);
       };
     }
 
-    if(isCaller) {
-      this.peerUserName = peerUserName as string;
-
-      peerConnection.createOffer()
-        .then(this.createdDescription)
-        .catch(this.errorHandler);
-    }
   }
   
   isDataChannelReady() {
@@ -129,7 +127,7 @@ export default class WebRTCService extends EventEmitter {
   }
 
   grabScreen() {
-    if(navigator.mediaDevices.getUserMedia) {
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       return (navigator.mediaDevices as any).getDisplayMedia({video: true})
         .then(this.getUserMediaSuccess)
         .catch(this.errorHandler);
@@ -138,11 +136,22 @@ export default class WebRTCService extends EventEmitter {
     } 
   }
 
-  private gotMessageFromServer = (message: IMessage) => {
-    if(!this.peerConnection) {
-      this.start();
+  grabCamera() {
+    const constraints = {
+      video: true,
+      audio: true,
+    };
+  
+    if(navigator.mediaDevices.getUserMedia) {
+      return navigator.mediaDevices.getUserMedia(constraints)
+        .then(this.getUserMediaSuccess)
+        .catch(this.errorHandler);
+    } else {
+      alert('Your browser does not support getUserMedia API');
     }
-    const peerConnection = this.peerConnection as RTCPeerConnection;
+  }
+
+  private gotMessageFromServer = (message: IMessage) => {
     let signal: ISignalMessage;
     try {
       signal = JSON.parse(message.message);
@@ -150,9 +159,14 @@ export default class WebRTCService extends EventEmitter {
       return;
     }
   
-    // Ignore messages from ourself
+    // Ignore messages from yourself
     if(!signal.uuid || signal.uuid === this.uuid) return;
     this.peerUserName = message.from;
+
+    if(!this.peerConnection) {
+      this.start();
+    }
+    const peerConnection = this.peerConnection as RTCPeerConnection;
 
     if(signal.sdp) {
       const sdp = (signal as ISignalMessageSdp).sdp;

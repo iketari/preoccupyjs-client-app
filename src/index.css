@@ -22,6 +22,7 @@ code {
   bottom: 5px;
   left: 5px;
   border: 1px solid #000;
+  z-index: 999999999;
 }
 
 .messages {
@@ -30,10 +31,7 @@ code {
 }
 
 .pad {
-    margin: 10px 5px;
-    border: 1px dashed #888;
-    width: 100%;
-    height: calc(100vh - 350px);
+    border: 1px dashed #000;
     resize: both;
     overflow: auto;
 }
