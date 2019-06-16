@@ -8,9 +8,25 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.videoWrapper {
+  position: relative;
+  font-size: 0;
+}
+
+.video {
+  display: inline-block;
+  background-color: dimgray;
+  border: 1px solid black;
+  max-width: 100%;
+  width: 100%;
+}
+
+.pad {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
 .appmode {
