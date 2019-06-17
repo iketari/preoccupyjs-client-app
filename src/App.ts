@@ -44,8 +44,9 @@ export default class VanillaApp {
 
   render() {
     this.el.innerHTML = `
-      <a class="toggleapp" ${!this.state.appMode ? 'hidden' : ''} data-onclick="handleOnMinimizeClick" href="#">Toggle</a>
-      <div class="container ${this.state.appMode ? 'appmode' : '' }">
+      <div class="app ${this.state.appMode ? 'appmode' : '' }">
+      <a class="toggleapp" data-onclick="handleOnToggleClick" href="#">Toggle Panel</a>
+      <div class="container">
         <div class="row">
           <div class="col">
             <div class="videoWrapper">
@@ -95,6 +96,7 @@ export default class VanillaApp {
             <div class="messages"></div>
           </div>
         </div>
+      </div>
       </div>`;
 
       this.renderMessages();
@@ -185,11 +187,11 @@ export default class VanillaApp {
     this.initWebRTC();
   }
 
-  handleOnMinimizeClick = (event: MouseEvent) => {
+  handleOnToggleClick = (event: MouseEvent) => {
     event.preventDefault();
-    const container = this.el.querySelector('.container') as HTMLDivElement;
+    const appEl = this.el.querySelector('.app') as HTMLDivElement;
 
-    container.hidden = !container.hidden;
+    appEl.classList.toggle('mini');
   }
 
   handleOnToggleVideoClick = (event: MouseEvent) => {

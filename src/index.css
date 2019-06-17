@@ -29,6 +29,10 @@ body {
   bottom: 0;
 }
 
+.toggleapp {
+  display: none;
+}
+
 .appmode {
   max-width: 300px;
   background: #888;
@@ -38,7 +42,20 @@ body {
   bottom: 5px;
   left: 5px;
   border: 1px solid #000;
-  z-index: 999999999;
+  z-index: 99999999;
+}
+
+.appmode .toggleapp {
+  display: inline-block;
+  margin: 5px 10px;
+}
+
+.mini.appmode {
+  bottom: initial;
+}
+
+.mini .container {
+  display: none;
 }
 
 .messages {

@@ -4,7 +4,7 @@ import App from './App';
 
 const app = new App({
   el:  document.getElementById('root') as HTMLElement,
-  appMode: true
+  appMode: false
 });
 
 app.init();
