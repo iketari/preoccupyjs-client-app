@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/preoccupyjs-client-app/precache-manifest.84c5f74c1eef1d7bb475397d51556c8d.js"
+  "/preoccupyjs-client-app/precache-manifest.aaa7d7e339c5d4a13571cd6c69674609.js"
 );
 
 self.addEventListener('message', (event) => {
